@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Utenti di GitHub</string>
+    <string name="nama_user">Nome utente</string>
+    <string name="detail_user">Dettaglio</string>
+    <string name="about">Di</string>
+    <string name="info">Dettagli utente</string>
+    <string name="author">Khoerul Umam</string>
+    <string name="email">khoerul27@gmail.com</string>
+    <string name="aboutTitle">A proposito di me</string>
+    <string name="detailTitle">Dettagli utente</string>
+    <string name="search">Cerca il nome utente</string>
+    <string name="search_hint">Cerca il nome utente</string>
+    <string name="follow_fragment">Seguaci</string>
+    <string name="following_fragment">Seguire</string>
+    <string name="change_locale">Cambia lingua</string>
+</resources>

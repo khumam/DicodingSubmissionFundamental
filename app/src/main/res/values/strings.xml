@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Pengguna Github</string>
+    <string name="nama_user">Nama user</string>
+    <string name="detail_user">Detail</string>
+    <string name="about">Tentang</string>
+    <string name="info">Detail user</string>
+    <string name="author">Khoerul Umam</string>
+    <string name="email">khoerul27@gmail.com</string>
+    <string name="aboutTitle">Tentang saya</string>
+    <string name="detailTitle">Detail user</string>
+    <string name="search">Cari pengguna</string>
+    <string name="search_hint">Cari pengguna</string>
+    <string name="follow_fragment">Pengikut</string>
+    <string name="following_fragment">Mengikuti</string>
+    <string name="change_locale">Ubah bahasa</string>
+</resources>
