@@ -13,4 +13,9 @@
     <string name="follow_fragment">Pengikut</string>
     <string name="following_fragment">Mengikuti</string>
     <string name="change_locale">Ubah bahasa</string>
+    <string name="not_found">Tidak ditemukan</string>
+    <string name="location">Lokasi</string>
+    <string name="company">Perusahaan</string>
+    <string name="repository">Repositori</string>
+    <string name="detailinfo_fragment">Info</string>
 </resources>

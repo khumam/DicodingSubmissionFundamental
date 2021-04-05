@@ -2,10 +2,10 @@ package com.khumam.dicodingsubmissiontwo
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +23,7 @@ class FollowingFragment : Fragment() {
     private var binding: FragmentFollowingBinding? = null
     private lateinit var rvFollowing: RecyclerView
     private lateinit var adapter: FollowingAdapter
+    private lateinit var progressBarConfig: ProgressBar
 
     companion object {
         private val TAG = FollowingFragment::class.java.simpleName
@@ -39,6 +40,8 @@ class FollowingFragment : Fragment() {
         adapter = FollowingAdapter(listFollowing)
         rvFollowing = view.findViewById(R.id.rvFollowing)
         rvFollowing.setHasFixedSize(true)
+
+        progressBarConfig = view.findViewById(R.id.progressBarFollowing)
 
         listFollowing.clear()
         val dataUser = activity?.intent?.getParcelableExtra<User>(DATAUSER)
@@ -62,14 +65,14 @@ class FollowingFragment : Fragment() {
     }
 
     private fun getFollowers(id: String) {
-        binding?.progressBarFollowing?.visibility = View.VISIBLE
+        progressBarConfig.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 11a578ce3fb594dd8c1a862036d972a53fcb0baf")
+        client.addHeader("Authorization", "token 0aaedf791249e41bdc8630a728379a7c27344051")
         val source = "https://api.github.com/users/$id/following"
         client.get(source, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
-                binding?.progressBarFollowing?.visibility = View.INVISIBLE
+                progressBarConfig.visibility = View.INVISIBLE
                 val result = String(responseBody)
                 try {
                     val resultArray = JSONArray(result)
@@ -97,13 +100,15 @@ class FollowingFragment : Fragment() {
     }
 
     private fun getDetailUser(id: String) {
+        progressBarConfig.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 11a578ce3fb594dd8c1a862036d972a53fcb0baf")
+        client.addHeader("Authorization", "token 0aaedf791249e41bdc8630a728379a7c27344051")
         val source = "https://api.github.com/users/$id"
 
         client.get(source, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
+                progressBarConfig.visibility = View.INVISIBLE
                 val result = String(responseBody)
 
                 try {
@@ -160,8 +165,8 @@ class FollowingFragment : Fragment() {
                 user.following,
                 user.avatar
         )
-        val userdetail = Intent(activity, DetailUser::class.java)
-        userdetail.putExtra(DetailUser.DATAUSER, userData)
+        val userdetail = Intent(activity, DetailUserActivity::class.java)
+        userdetail.putExtra(DetailUserActivity.DATAUSER, userData)
         startActivity(userdetail)
     }
 }

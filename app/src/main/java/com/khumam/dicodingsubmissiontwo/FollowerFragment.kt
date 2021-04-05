@@ -2,10 +2,10 @@ package com.khumam.dicodingsubmissiontwo
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,18 +17,17 @@ import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import org.json.JSONObject
 
-class FollowFragment : Fragment() {
+class FollowerFragment : Fragment() {
 
     private var listFollow: ArrayList<User> = ArrayList()
     private var binding: FragmentFollowBinding? = null
     private lateinit var rvFollowers: RecyclerView
-    private lateinit var adapter: FollowAdapter
+    private lateinit var adapter: FollowerAdapter
+    private lateinit var progressBarConfig: ProgressBar
 
     companion object {
-        private val TAG = FollowFragment::class.java.simpleName
+        private val TAG = FollowerFragment::class.java.simpleName
         const val DATAUSER = "datauser"
-
-        fun newInstance() = FollowingFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -39,9 +38,11 @@ class FollowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFollowBinding.inflate(layoutInflater)
-        adapter = FollowAdapter(listFollow)
+        adapter = FollowerAdapter(listFollow)
         rvFollowers = view.findViewById(R.id.rvFollowers)
         rvFollowers.setHasFixedSize(true)
+
+        progressBarConfig = view.findViewById(R.id.progressBarFollow)
 
         listFollow.clear()
         val dataUser = activity?.intent?.getParcelableExtra<User>(DATAUSER)
@@ -52,11 +53,11 @@ class FollowFragment : Fragment() {
 //        binding?.rvFollowers?.setHasFixedSize(true)
 //        binding?.rvFollowers?.layoutManager = LinearLayoutManager(activity)
         rvFollowers.layoutManager = LinearLayoutManager(this.activity)
-        val followAdapter = FollowAdapter(listFollow)
+        val followAdapter = FollowerAdapter(listFollow)
 //        binding?.rvFollowers?.adapter = FollowingAdapter(listFollow)
         rvFollowers.adapter = followAdapter
 
-        followAdapter.setOnItemClickCallback(object : FollowAdapter.OnItemClickCallback {
+        followAdapter.setOnItemClickCallback(object : FollowerAdapter.OnItemClickCallback {
             override fun onItemClicked(data: User) {
                 showSelectedUser(data)
             }
@@ -64,12 +65,14 @@ class FollowFragment : Fragment() {
     }
 
     private fun getFollowers(id: String) {
+        progressBarConfig.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 11a578ce3fb594dd8c1a862036d972a53fcb0baf")
+        client.addHeader("Authorization", "token 0aaedf791249e41bdc8630a728379a7c27344051")
         val source = "https://api.github.com/users/$id/followers"
         client.get(source, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
+                progressBarConfig.visibility = View.INVISIBLE
                 val result = String(responseBody)
                 try {
                     val resultArray = JSONArray(result)
@@ -97,13 +100,16 @@ class FollowFragment : Fragment() {
     }
 
     private fun getDetailUser(id: String) {
+        progressBarConfig.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-
+        client.addHeader("User-Agent", "request")
+        client.addHeader("Authorization", "token 0aaedf791249e41bdc8630a728379a7c27344051")
         val source = "https://api.github.com/users/$id"
 
         client.get(source, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
+                progressBarConfig.visibility = View.INVISIBLE
                 val result = String(responseBody)
 
                 try {
@@ -160,8 +166,8 @@ class FollowFragment : Fragment() {
                 user.following,
                 user.avatar
         )
-        val userdetail = Intent(activity, DetailUser::class.java)
-        userdetail.putExtra(DetailUser.DATAUSER, userData)
+        val userdetail = Intent(activity, DetailUserActivity::class.java)
+        userdetail.putExtra(DetailUserActivity.DATAUSER, userData)
         startActivity(userdetail)
     }
 }

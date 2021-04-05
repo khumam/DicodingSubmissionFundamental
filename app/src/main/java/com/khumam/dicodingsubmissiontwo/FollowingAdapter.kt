@@ -19,7 +19,7 @@ class FollowingAdapter (private val listUserFollowing: ArrayList<User>) : Recycl
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.fragment_following, viewGroup, false)
+        val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.list_users, viewGroup, false)
         return  ListViewHolder(view)
     }
 

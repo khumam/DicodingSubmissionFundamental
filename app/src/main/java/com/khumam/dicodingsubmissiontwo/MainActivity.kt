@@ -6,7 +6,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -80,8 +79,8 @@ class MainActivity : AppCompatActivity() {
                 user.following,
                 user.avatar
         )
-        val userdetail = Intent(this@MainActivity, DetailUser::class.java)
-        userdetail.putExtra(DetailUser.DATAUSER, userData)
+        val userdetail = Intent(this@MainActivity, DetailUserActivity::class.java)
+        userdetail.putExtra(DetailUserActivity.DATAUSER, userData)
         startActivity(userdetail)
     }
 
@@ -91,18 +90,26 @@ class MainActivity : AppCompatActivity() {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu.findItem(R.id.search).actionView as SearchView
 
+        searchView.clearFocus()
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.queryHint = resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (!query.isEmpty()) {
                     list.clear()
+                    searchView.clearFocus()
                     searchUserLists(query)
                 }
                 return true
             }
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
+            }
+        })
+        searchView.setOnCloseListener (object : SearchView.OnCloseListener {
+            override fun onClose(): Boolean {
+                getUserLists()
+                return true
             }
         })
         return super.onCreateOptionsMenu(menu)
@@ -112,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 11a578ce3fb594dd8c1a862036d972a53fcb0baf")
+        client.addHeader("Authorization", "token 0aaedf791249e41bdc8630a728379a7c27344051")
         val source = "https://api.github.com/search/users?q=khumam"
         client.get(source, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
@@ -121,10 +128,15 @@ class MainActivity : AppCompatActivity() {
                 try {
                     val resultArray = JSONObject(result)
                     val item = resultArray.getJSONArray("items")
+                    if (item.length() == 0) {
+                        Toast.makeText(this@MainActivity, resources.getString(R.string.not_found) , Toast.LENGTH_SHORT).show()
+                    }
                     for (index in 0 until item.length()) {
                         val resultObject = item.getJSONObject(index)
                         val userName: String = resultObject.getString("login")
-                        getDetailUser(userName)
+                        if (userName != null) {
+                            getDetailUser(userName)
+                        }
                     }
                 } catch (e: Exception) {
                     Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
@@ -148,15 +160,19 @@ class MainActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 11a578ce3fb594dd8c1a862036d972a53fcb0baf")
+        client.addHeader("Authorization", "token 0aaedf791249e41bdc8630a728379a7c27344051")
         val source = "https://api.github.com/search/users?q=$id"
         client.get(source, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
                 binding.progressBar.visibility = View.INVISIBLE
                 val result = String(responseBody)
+                list.clear()
                 try {
                     val resultArray = JSONObject(result)
                     val item = resultArray.getJSONArray("items")
+                    if (item.length() == 0) {
+                        Toast.makeText(this@MainActivity, resources.getString(R.string.not_found) , Toast.LENGTH_SHORT).show()
+                    }
                     for (index in 0 until item.length()) {
                         val resultObject = item.getJSONObject(index)
                         val userName: String = resultObject.getString("login")
@@ -184,7 +200,7 @@ class MainActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 11a578ce3fb594dd8c1a862036d972a53fcb0baf")
+        client.addHeader("Authorization", "token 0aaedf791249e41bdc8630a728379a7c27344051")
         val source = "https://api.github.com/users/$id"
 
         client.get(source, object : AsyncHttpResponseHandler() {
@@ -203,7 +219,8 @@ class MainActivity : AppCompatActivity() {
                     val followers: String? = resultObject.getString("followers")
                     val following: String? = resultObject.getString("following")
 
-                    list.add(
+                    if (name != null) {
+                        list.add(
                             User(
                                 username,
                                 name,
@@ -214,9 +231,10 @@ class MainActivity : AppCompatActivity() {
                                 following,
                                 avatar,
                             )
-                    )
+                        )
 
-                    showRecyclerList()
+                        showRecyclerList()
+                    }
                 } catch (e: Exception) {
                     Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
                     e.printStackTrace()

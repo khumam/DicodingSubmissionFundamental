@@ -14,4 +14,9 @@
     <string name="follow_fragment">Followers</string>
     <string name="following_fragment">Followings</string>
     <string name="change_locale">Set language</string>
+    <string name="not_found">Not found</string>
+    <string name="location">Location</string>
+    <string name="company">Company</string>
+    <string name="repository">Repository</string>
+    <string name="detailinfo_fragment">Info</string>
 </resources>

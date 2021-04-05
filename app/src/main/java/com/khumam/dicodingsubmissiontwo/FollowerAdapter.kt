@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 
-class FollowAdapter (private val listUserFollowers: ArrayList<User>) : RecyclerView.Adapter<FollowAdapter.ListViewHolder>() {
+class FollowerAdapter (private val listUserFollowers: ArrayList<User>) : RecyclerView.Adapter<FollowerAdapter.ListViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.fragment_follow, viewGroup, false)
+        val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.list_users, viewGroup, false)
         return ListViewHolder(view)
     }
 

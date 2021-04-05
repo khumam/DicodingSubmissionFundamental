@@ -5,58 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/id_avatar"
+    
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:scaleType="centerCrop"
-        tools:src="@android:color/darker_gray"
-        />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/id_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="Name"
-        android:textAlignment="center"
-        android:textSize="24dp"
-        android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/id_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            tools:src="@android:color/darker_gray"
+            />
 
-    <TextView
-        android:id="@+id/id_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        android:textSize="14dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/id_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="35dp"
+            android:layout_marginRight="25dp"
+            android:text="Name"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:layout_gravity="bottom"
+            android:background="@color/cardview_light_background"
+            android:paddingLeft="25dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="2dp"/>
 
-    <TextView
-        android:id="@+id/id_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Location"
-        android:textSize="16dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:textStyle="bold"
-        android:textAlignment="center"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/id_favourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_favourite"
+            android:layout_margin="16dp"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/id_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="14dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"
+            android:background="@color/teal_700"
+            android:paddingLeft="25dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/cardview_light_background"/>
+
+    </FrameLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        app:tabTextColor="@android:color/black"
-        android:layout_marginTop="14dp"/>
+        app:tabTextColor="@android:color/black"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
