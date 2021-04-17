@@ -1,4 +1,4 @@
-package com.khumam.dicodingsubmissiontwo
+package com.khumam.dicodingsubmissiontwo.data
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -14,5 +14,5 @@ data class User(
         var company: String?,
         var followers: String?,
         var following: String?,
-        var avatar: String?
+        var avatar: String?,
 ) : Parcelable

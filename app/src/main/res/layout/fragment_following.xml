@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FollowingFragment">
+    tools:context=".fragment.FollowingFragment">
 
     <ProgressBar
         android:id="@+id/progressBarFollowing"
@@ -15,8 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="35dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView

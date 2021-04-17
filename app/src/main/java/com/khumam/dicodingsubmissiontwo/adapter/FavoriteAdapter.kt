@@ -1,6 +1,5 @@
-package com.khumam.dicodingsubmissiontwo
+package com.khumam.dicodingsubmissiontwo.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,33 +8,32 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.khumam.dicodingsubmissiontwo.data.Favorite
+import com.khumam.dicodingsubmissiontwo.R
 
-class FollowingAdapter (private val listUserFollowing: ArrayList<User>) : RecyclerView.Adapter<FollowingAdapter.ListViewHolder>() {
+
+class FavoriteAdapter (private val listFavorite: ArrayList<Favorite>) : RecyclerView.Adapter<FavoriteAdapter.ListViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
 
-    companion object {
-        private val TAG = FollowingAdapter::class.java.simpleName
-    }
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ListViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.list_users, viewGroup, false)
-        return  ListViewHolder(view)
+        return ListViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val user = listUserFollowing[position]
+        val user = listFavorite[position]
         Glide.with(holder.itemView.context)
                 .load(user.avatar)
                 .apply(RequestOptions().override(55, 55))
                 .into(holder.avatar)
         holder.name.text = user.name
         holder.username.text = user.username
-        holder.itemView.setOnClickListener { onItemClickCallback?.onItemClicked(listUserFollowing[holder.adapterPosition]) }
+        holder.itemView.setOnClickListener { onItemClickCallback?.onItemClicked(listFavorite[holder.adapterPosition]) }
     }
 
     override fun getItemCount(): Int {
-        return listUserFollowing.size
+        return listFavorite.size
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -43,7 +41,7 @@ class FollowingAdapter (private val listUserFollowing: ArrayList<User>) : Recycl
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: User)
+        fun onItemClicked(data: Favorite)
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

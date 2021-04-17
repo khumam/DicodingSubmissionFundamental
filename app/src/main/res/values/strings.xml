@@ -18,4 +18,14 @@
     <string name="company">Perusahaan</string>
     <string name="repository">Repositori</string>
     <string name="detailinfo_fragment">Info</string>
+    <string name="home">Beranda</string>
+    <string name="favorite">Favorit</string>
+    <string name="setting">Pengingat</string>
+    <string name="alarm_setup">Pengingat berhasil dipasang</string>
+    <string name="set_alarm_btn">Tetapkan pengingat</string>
+    <string name="detail_time">Pengingat waktu</string>
+    <string name="success_delete">Berhasil dihapus dari daftar favorit</string>
+    <string name="error_delete">Gagal dihapus dari daftar favorit</string>
+    <string name="success_added">Berhasil ditambahkan ke daftar favorit</string>
+    <string name="error_added">Gagal ditambahkan ke daftar favorit</string>
 </resources>

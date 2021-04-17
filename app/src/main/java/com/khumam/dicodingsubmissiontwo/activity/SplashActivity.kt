@@ -1,10 +1,10 @@
-package com.khumam.dicodingsubmissiontwo
+package com.khumam.dicodingsubmissiontwo.activity
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import com.khumam.dicodingsubmissiontwo.R
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

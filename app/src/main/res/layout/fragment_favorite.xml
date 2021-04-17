@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.FollowerFragment">
+    tools:context=".fragment.FavoritFragment">
 
     <ProgressBar
-        android:id="@+id/progressBarFollow"
+        android:id="@+id/progressBarFavorite"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,11 +15,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:layout_gravity="center_horizontal"
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFollowers"
+        android:id="@+id/rvFavorite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/list_users" />

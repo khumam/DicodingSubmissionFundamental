@@ -1,8 +1,11 @@
-package com.khumam.dicodingsubmissiontwo
+package com.khumam.dicodingsubmissiontwo.adapter
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.khumam.dicodingsubmissiontwo.fragment.FollowerFragment
+import com.khumam.dicodingsubmissiontwo.fragment.FollowingFragment
+import com.khumam.dicodingsubmissiontwo.fragment.UserinfoFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {

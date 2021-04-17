@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.khumam.dicodingsubmissiontwo">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -10,22 +11,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DicodingSubmissionTwo">
-        <activity android:name=".SplashActivity"
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <activity android:name=".activity.SettingActivity"
+            android:label="@string/setting"/>
+        <activity
+            android:name=".activity.SplashActivity"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name=".activity.AboutActivity"
             android:label="@string/aboutTitle" />
         <activity
-            android:name=".DetailUserActivity"
+            android:name=".activity.DetailUserActivity"
             android:label="@string/detailTitle" />
-        <activity android:name=".MainActivity">
-        </activity>
-
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

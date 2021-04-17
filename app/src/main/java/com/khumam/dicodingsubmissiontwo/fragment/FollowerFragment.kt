@@ -1,63 +1,53 @@
-package com.khumam.dicodingsubmissiontwo
+package com.khumam.dicodingsubmissiontwo.fragment
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.khumam.dicodingsubmissiontwo.databinding.FragmentFollowingBinding
+import com.khumam.dicodingsubmissiontwo.ViewBindingHolder
+import com.khumam.dicodingsubmissiontwo.ViewBindingHolderImpl
+import com.khumam.dicodingsubmissiontwo.activity.DetailUserActivity
+import com.khumam.dicodingsubmissiontwo.adapter.FollowerAdapter
+import com.khumam.dicodingsubmissiontwo.data.User
+import com.khumam.dicodingsubmissiontwo.databinding.FragmentFollowBinding
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import org.json.JSONObject
 
-class FollowingFragment : Fragment() {
+class FollowerFragment : Fragment(), ViewBindingHolder<FragmentFollowBinding> by ViewBindingHolderImpl() {
 
-    private var listFollowing: ArrayList<User> = ArrayList()
-    private var binding: FragmentFollowingBinding? = null
-    private lateinit var rvFollowing: RecyclerView
-    private lateinit var adapter: FollowingAdapter
-    private lateinit var progressBarConfig: ProgressBar
+    private var listFollow: ArrayList<User> = ArrayList()
+    private lateinit var adapter: FollowerAdapter
+    private var token: String = "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"
 
     companion object {
-        private val TAG = FollowingFragment::class.java.simpleName
-        const val DATAUSER = "datauser"
+        const val USERNAME = "username"
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_following, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = initBinding(FragmentFollowBinding.inflate(inflater), this) {}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentFollowingBinding.inflate(layoutInflater)
-        adapter = FollowingAdapter(listFollowing)
-        rvFollowing = view.findViewById(R.id.rvFollowing)
-        rvFollowing.setHasFixedSize(true)
+        adapter = FollowerAdapter(listFollow)
+        binding?.rvFollowers?.setHasFixedSize(true)
 
-        progressBarConfig = view.findViewById(R.id.progressBarFollowing)
-
-        listFollowing.clear()
-        val dataUser = activity?.intent?.getParcelableExtra<User>(DATAUSER)
-        getFollowers(dataUser?.username.toString())
+        listFollow.clear()
+        val dataUser = activity?.intent?.getStringExtra(USERNAME)
+        getFollowers(dataUser.toString())
     }
 
     private fun showRecyclerList() {
+        binding?.rvFollowers?.layoutManager = LinearLayoutManager(this.activity)
+        val followAdapter = FollowerAdapter(listFollow)
+        binding?.rvFollowers?.adapter = followAdapter
 
-//        binding?.rvFollowing?.setHasFixedSize(true)
-//        binding?.rvFollowing?.layoutManager = LinearLayoutManager(activity)
-        rvFollowing.layoutManager = LinearLayoutManager(activity)
-        val followingAdapter = FollowingAdapter(listFollowing)
-//        binding?.rvFollowing?.adapter = FollowingAdapter(listFollowing)
-        rvFollowing.adapter = followingAdapter
-
-        followingAdapter.setOnItemClickCallback(object : FollowingAdapter.OnItemClickCallback {
+        followAdapter.setOnItemClickCallback(object : FollowerAdapter.OnItemClickCallback {
             override fun onItemClicked(data: User) {
                 showSelectedUser(data)
             }
@@ -65,14 +55,14 @@ class FollowingFragment : Fragment() {
     }
 
     private fun getFollowers(id: String) {
-        progressBarConfig.visibility = View.VISIBLE
+        binding?.progressBarFollow?.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 0aaedf791249e41bdc8630a728379a7c27344051")
-        val source = "https://api.github.com/users/$id/following"
+        client.addHeader("Authorization", "token $token")
+        val source = "https://api.github.com/users/$id/followers"
         client.get(source, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
-                progressBarConfig.visibility = View.INVISIBLE
+                binding?.progressBarFollow?.visibility = View.INVISIBLE
                 val result = String(responseBody)
                 try {
                     val resultArray = JSONArray(result)
@@ -88,6 +78,7 @@ class FollowingFragment : Fragment() {
             }
 
             override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
+                binding?.progressBarFollow?.visibility = View.INVISIBLE
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
                     403 -> "$statusCode : Forbidden"
@@ -100,15 +91,16 @@ class FollowingFragment : Fragment() {
     }
 
     private fun getDetailUser(id: String) {
-        progressBarConfig.visibility = View.VISIBLE
+        binding?.progressBarFollow?.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token 0aaedf791249e41bdc8630a728379a7c27344051")
+        client.addHeader("User-Agent", "request")
+        client.addHeader("Authorization", "token $token")
         val source = "https://api.github.com/users/$id"
 
         client.get(source, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
-                progressBarConfig.visibility = View.INVISIBLE
+                binding?.progressBarFollow?.visibility = View.INVISIBLE
                 val result = String(responseBody)
 
                 try {
@@ -122,7 +114,7 @@ class FollowingFragment : Fragment() {
                     val followers: String? = resultObject.getString("followers")
                     val following: String? = resultObject.getString("following")
 
-                    listFollowing.add(
+                    listFollow.add(
                             User(
                                     username,
                                     name,
@@ -143,6 +135,7 @@ class FollowingFragment : Fragment() {
             }
 
             override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
+                binding?.progressBarFollow?.visibility = View.INVISIBLE
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
                     403 -> "$statusCode : Forbidden"
@@ -155,18 +148,10 @@ class FollowingFragment : Fragment() {
     }
 
     private fun showSelectedUser(user: User) {
-        val userData = User(
-                user.username,
-                user.name,
-                user.location,
-                user.repository,
-                user.company,
-                user.followers,
-                user.following,
-                user.avatar
-        )
         val userdetail = Intent(activity, DetailUserActivity::class.java)
-        userdetail.putExtra(DetailUserActivity.DATAUSER, userData)
+        userdetail.putExtra(DetailUserActivity.USERNAME, user.username)
+        userdetail.putExtra(DetailUserActivity.NAME, user.name)
+        userdetail.putExtra(DetailUserActivity.AVATAR, user.avatar)
         startActivity(userdetail)
     }
 }

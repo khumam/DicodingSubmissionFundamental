@@ -1,4 +1,4 @@
-package com.khumam.dicodingsubmissiontwo
+package com.khumam.dicodingsubmissiontwo.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,30 +8,35 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.khumam.dicodingsubmissiontwo.R
+import com.khumam.dicodingsubmissiontwo.data.User
 
-
-class FollowerAdapter (private val listUserFollowers: ArrayList<User>) : RecyclerView.Adapter<FollowerAdapter.ListViewHolder>() {
+class FollowingAdapter (private val listUserFollowing: ArrayList<User>) : RecyclerView.Adapter<FollowingAdapter.ListViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
 
+    companion object {
+        private val TAG = FollowingAdapter::class.java.simpleName
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ListViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.list_users, viewGroup, false)
-        return ListViewHolder(view)
+        return  ListViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val user = listUserFollowers[position]
+        val user = listUserFollowing[position]
         Glide.with(holder.itemView.context)
                 .load(user.avatar)
                 .apply(RequestOptions().override(55, 55))
                 .into(holder.avatar)
         holder.name.text = user.name
         holder.username.text = user.username
-        holder.itemView.setOnClickListener { onItemClickCallback?.onItemClicked(listUserFollowers[holder.adapterPosition]) }
+        holder.itemView.setOnClickListener { onItemClickCallback?.onItemClicked(listUserFollowing[holder.adapterPosition]) }
     }
 
     override fun getItemCount(): Int {
-        return listUserFollowers.size
+        return listUserFollowing.size
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {

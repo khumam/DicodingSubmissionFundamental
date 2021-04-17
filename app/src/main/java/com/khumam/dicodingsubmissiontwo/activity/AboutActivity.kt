@@ -1,4 +1,4 @@
-package com.khumam.dicodingsubmissiontwo
+package com.khumam.dicodingsubmissiontwo.activity
 
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import com.khumam.dicodingsubmissiontwo.R
 
 
 class AboutActivity : AppCompatActivity() {

@@ -19,4 +19,14 @@
     <string name="company">Azienda</string>
     <string name="repository">Repository</string>
     <string name="detailinfo_fragment">Info</string>
+    <string name="home">Casa</string>
+    <string name="favorite">Preferito</string>
+    <string name="setting">Reminder</string>
+    <string name="alarm_setup">Alarm was successfully added</string>
+    <string name="set_alarm_btn">Set reminder</string>
+    <string name="detail_time">Reminder time</string>
+    <string name="success_added">Added to favorite list</string>
+    <string name="error_added">Failed to add into favorite list</string>
+    <string name="success_delete">Removed from favorite list</string>
+    <string name="error_delete">Failed to remove from favorite list</string>
 </resources>

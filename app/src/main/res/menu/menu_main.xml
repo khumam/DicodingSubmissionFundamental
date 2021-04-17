@@ -18,4 +18,9 @@
         android:id="@+id/action_locale"
         android:title="@string/change_locale"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_setting"
+        android:title="@string/setting"
+        app:showAsAction="never"/>
 </menu>

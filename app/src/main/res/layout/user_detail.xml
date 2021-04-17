@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.DetailUserActivity">
     
     <FrameLayout
         android:layout_width="match_parent"
@@ -35,13 +36,15 @@
             android:paddingBottom="2dp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/id_favourite"
+            android:id="@+id/id_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:src="@drawable/ic_favourite"
             android:layout_margin="16dp"
-            android:visibility="visible"/>
+            android:visibility="visible"
+            app:tint="@color/cardview_dark_background"
+            android:backgroundTint="@color/cardview_light_background"/>
 
         <TextView
             android:id="@+id/id_username"
