@@ -1,2 +1,3 @@
+include ':githubuserconsumer'
 include ':app'
 rootProject.name = "DicodingSubmissionTwo"

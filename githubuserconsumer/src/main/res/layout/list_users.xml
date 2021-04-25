@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/id_avatar_rv"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp"
+        tools:src="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/id_name_rv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/id_avatar_rv"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="16dp"
+        tools:text="@string/nama_user" />
+
+    <TextView
+        android:id="@+id/id_username_rv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintStart_toEndOf="@+id/id_avatar_rv"
+        app:layout_constraintTop_toBottomOf="@+id/id_name_rv"
+        tools:ignore="MissingConstraints"
+        tools:text="@string/detail_user" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

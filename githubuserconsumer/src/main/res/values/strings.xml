@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Pengguna Github Consumer App</string>
+    <string name="nama_user">Nama user</string>
+    <string name="detail_user">Detail</string>
+    <string name="about">Tentang</string>
+    <string name="info">Detail user</string>
+    <string name="author">Khoerul Umam</string>
+    <string name="email">khoerul27@gmail.com</string>
+    <string name="aboutTitle">Tentang saya</string>
+    <string name="detailTitle">Detail user</string>
+    <string name="search">Cari pengguna</string>
+    <string name="search_hint">Cari pengguna</string>
+    <string name="follow_fragment">Pengikut</string>
+    <string name="following_fragment">Mengikuti</string>
+    <string name="change_locale">Ubah bahasa</string>
+    <string name="not_found">Tidak ditemukan</string>
+    <string name="location">Lokasi</string>
+    <string name="company">Perusahaan</string>
+    <string name="repository">Repositori</string>
+    <string name="detailinfo_fragment">Info</string>
+    <string name="home">Beranda</string>
+    <string name="favorite">Favorit</string>
+    <string name="setting">Pengingat</string>
+    <string name="alarm_setup">Pengingat berhasil dipasang</string>
+    <string name="set_alarm_btn">Tetapkan pengingat</string>
+    <string name="detail_time">Pengingat waktu</string>
+    <string name="success_delete">Berhasil dihapus dari daftar favorit</string>
+    <string name="error_delete">Gagal dihapus dari daftar favorit</string>
+    <string name="success_added">Berhasil ditambahkan ke daftar favorit</string>
+    <string name="error_added">Gagal ditambahkan ke daftar favorit</string>
+</resources>

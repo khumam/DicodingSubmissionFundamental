@@ -20,7 +20,7 @@ import org.json.JSONObject
 
 class UserinfoFragment : Fragment(), ViewBindingHolder<FragmentUserinfoBinding> by ViewBindingHolderImpl() {
 
-    private var token: String = "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"
+    private var token: String = "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"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

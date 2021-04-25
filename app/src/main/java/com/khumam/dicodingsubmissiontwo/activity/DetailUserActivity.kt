@@ -1,7 +1,11 @@
 package com.khumam.dicodingsubmissiontwo.activity
 
 import android.content.ContentValues
+import android.database.ContentObserver
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -16,6 +20,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.khumam.dicodingsubmissiontwo.*
 import com.khumam.dicodingsubmissiontwo.contract.DatabaseContract
 import com.khumam.dicodingsubmissiontwo.adapter.SectionsPagerAdapter
+import com.khumam.dicodingsubmissiontwo.contract.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
 import com.khumam.dicodingsubmissiontwo.data.Favorite
 import com.khumam.dicodingsubmissiontwo.data.User
 import com.khumam.dicodingsubmissiontwo.data.UserDetail
@@ -31,9 +36,7 @@ import java.util.*
 class DetailUserActivity : AppCompatActivity(), View.OnClickListener {
 
     private var favorite: Favorite? = null
-    private var position: Int = 0
     private lateinit var favoriteHelper: FavoriteHelper
-    private var token: String = "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"
 
     companion object {
         const val USERNAME = "username"
@@ -49,8 +52,6 @@ class DetailUserActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_detail)
-        favoriteHelper = FavoriteHelper.getInstance(applicationContext)
-        favoriteHelper.open()
 
         val sectionsPagerAdapter  = SectionsPagerAdapter(this)
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
@@ -71,14 +72,15 @@ class DetailUserActivity : AppCompatActivity(), View.OnClickListener {
         val usernameFromIntent = intent.getStringExtra(USERNAME)
         val nameFromIntent = intent.getStringExtra(NAME)
         val avatarFromIntent = intent.getStringExtra(AVATAR)
+        val contentUriId    = Uri.parse(CONTENT_URI.toString() + "/" + usernameFromIntent.toString())
 
         dataUsername.text      = usernameFromIntent
         dataName.text          = nameFromIntent
         Glide.with(this)
                 .load(avatarFromIntent)
                 .into(dataAvatar)
-//
-        val checkFavorite = favoriteHelper.queryByUsername(usernameFromIntent.toString())
+
+        val checkFavorite = contentResolver.query(contentUriId, null, null, null, null)
         if (checkFavorite != null && checkFavorite.getCount() > 0) {
             imgFavorite.setColorFilter(resources.getColor(R.color.red))
         } else {
@@ -103,23 +105,15 @@ class DetailUserActivity : AppCompatActivity(), View.OnClickListener {
             values.put(DatabaseContract.FavoriteColumns.AVATAR, avatarData)
             values.put(DatabaseContract.FavoriteColumns.DATE, dateData)
 
-            val checkUsername = favoriteHelper.queryByUsername(usernameData)
+            val checkUsername = contentResolver.query(contentUriId, null, null, null, null)
             if (checkUsername != null && checkUsername.getCount() > 0) {
-                val result = favoriteHelper.deleteByUsername(usernameData)
-                if (result > 0) {
-                    Toast.makeText(this, resources.getString(R.string.success_delete), Toast.LENGTH_LONG).show()
-                    imgFavorite.setColorFilter(resources.getColor(R.color.white))
-                } else {
-                    Toast.makeText(this, resources.getString(R.string.error_delete), Toast.LENGTH_SHORT).show()
-                }
+                val result = contentResolver.delete(contentUriId, null, null)
+                Toast.makeText(this, resources.getString(R.string.success_delete), Toast.LENGTH_LONG).show()
+                imgFavorite.setColorFilter(resources.getColor(R.color.white))
             } else {
-                val result =  favoriteHelper.insert(values)
-                if (result > 0) {
-                    Toast.makeText(this, resources.getString(R.string.success_added), Toast.LENGTH_LONG).show()
-                    imgFavorite.setColorFilter(resources.getColor(R.color.red))
-                } else {
-                    Toast.makeText(this, resources.getString(R.string.error_added), Toast.LENGTH_SHORT).show()
-                }
+                val result =  contentResolver.insert(CONTENT_URI, values)
+                Toast.makeText(this, resources.getString(R.string.success_added), Toast.LENGTH_LONG).show()
+                imgFavorite.setColorFilter(resources.getColor(R.color.red))
 
             }
         }

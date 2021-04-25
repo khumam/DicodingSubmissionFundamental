@@ -29,4 +29,5 @@
     <string name="error_delete">Failed to remove from favorite list</string>
     <string name="success_added">Added to favorite list</string>
     <string name="error_added">Failed to add into favorite list</string>
+    <string name="alarm_on">You gonna back!</string>
 </resources>

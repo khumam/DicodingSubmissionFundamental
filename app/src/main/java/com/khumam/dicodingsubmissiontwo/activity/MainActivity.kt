@@ -3,13 +3,19 @@ package com.khumam.dicodingsubmissiontwo.activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.database.ContentObserver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.provider.Settings
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -18,14 +24,17 @@ import com.khumam.dicodingsubmissiontwo.viewModel.MyViewModel
 import com.khumam.dicodingsubmissiontwo.fragment.HomeFragment
 import com.khumam.dicodingsubmissiontwo.R
 import com.khumam.dicodingsubmissiontwo.adapter.SectionHomeAdapter
+import com.khumam.dicodingsubmissiontwo.adapter.userAdapter
+import com.khumam.dicodingsubmissiontwo.contract.DatabaseContract
 import com.khumam.dicodingsubmissiontwo.data.User
 import com.khumam.dicodingsubmissiontwo.databinding.ActivityMainBinding
+import com.khumam.dicodingsubmissiontwo.databinding.FragmentHomeBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rvUser: RecyclerView
     private var list: ArrayList<User> = arrayListOf()
     private lateinit var binding: ActivityMainBinding
-    private var token: String = "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"
+    private lateinit var fragmentHomeBinding: FragmentHomeBinding
     private lateinit var homeFragment: HomeFragment
     private val viewModel: MyViewModel by viewModels()
 
@@ -40,7 +49,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        fragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel.getUserLists()
 
         val sectionHomeAdapter  = SectionHomeAdapter(this@MainActivity)
         val viewPager: ViewPager2 = findViewById(R.id.view_pager_home)
@@ -99,6 +111,7 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnCloseListener (object : SearchView.OnCloseListener {
             override fun onClose(): Boolean {
                 viewModel.getUserLists()
+                Log.d("CLOSE", "CLOSED")
                 return true
             }
         })
