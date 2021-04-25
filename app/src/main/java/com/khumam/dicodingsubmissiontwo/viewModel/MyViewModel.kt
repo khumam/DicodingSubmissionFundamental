@@ -14,7 +14,7 @@ class MyViewModel: ViewModel() {
     private var _listUser = MutableLiveData<List<User>>()
     var listUser: LiveData<List<User>> = _listUser
     var list = arrayListOf<User>()
-    private var token: String = "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"
+    private var token: String = "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"
 
     fun searchUser(username: String) {
         val client = AsyncHttpClient()
@@ -34,7 +34,6 @@ class MyViewModel: ViewModel() {
                         val userName: String = resultObject.getString("login")
                         getDetailUser(userName)
                     }
-                    _listUser.postValue(list)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -70,7 +69,7 @@ class MyViewModel: ViewModel() {
                             getDetailUser(userName)
                         }
                     }
-                    _listUser.postValue(list)
+
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -118,9 +117,9 @@ class MyViewModel: ViewModel() {
                                         avatar,
                                 )
                         )
-                    }
 
-                    Log.d("TAG", username.toString())
+                        _listUser.postValue(list)
+                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

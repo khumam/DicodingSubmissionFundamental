@@ -28,15 +28,13 @@ class AlarmReceiver : BroadcastReceiver() {
         const val ALARM_TYPE = "repeat"
         const val REPEATING_ALARM = "RepeatingAlarm"
         private const val TIME_FORMAT = "HH:mm"
-        private val TAG = SettingActivity::class.java.simpleName
     }
 
     override fun onReceive(context: Context, intent: Intent) {
         val hoursAlarm =  intent.getStringExtra(REMINDER_TIME)
         val notificationId = NOTIFICATION_ID
-        Log.d(TAG, "TEST")
 
-        showNotification(context, context.getResources().getString(R.string.alarm_setup), "", notificationId)
+        showNotification(context, context.getResources().getString(R.string.alarm_on), "", notificationId)
     }
 
     private fun showToast(context: Context, title: String, message: String?) {

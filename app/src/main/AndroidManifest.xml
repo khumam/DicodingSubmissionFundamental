@@ -3,6 +3,8 @@
     package="com.khumam.dicodingsubmissiontwo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission android:name="com.khumam.dicodingsubmissiontwo.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.khumam.dicodingsubmissiontwo.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="true"
@@ -11,13 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DicodingSubmissionTwo">
+
+        <provider
+            android:name=".provider.MyFavoriteProvider"
+            android:authorities="com.khumam.dicodingsubmissiontwo.githubuserapp"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.khumam.dicodingsubmissiontwo.READ_DATABASE"
+            android:writePermission="com.khumam.dicodingsubmissiontwo.WRITE_DATABASE"></provider>
+
         <receiver
             android:name=".receiver.AlarmReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
 
-        <activity android:name=".activity.SettingActivity"
-            android:label="@string/setting"/>
+        <activity
+            android:name=".activity.SettingActivity"
+            android:label="@string/setting" />
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/SplashScreen">

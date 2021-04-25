@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Utenti di GitHub Consumer App</string>
+    <string name="nama_user">Nome utente</string>
+    <string name="detail_user">Dettaglio</string>
+    <string name="about">Di</string>
+    <string name="info">Dettagli utente</string>
+    <string name="author">Khoerul Umam</string>
+    <string name="email">khoerul27@gmail.com</string>
+    <string name="aboutTitle">A proposito di me</string>
+    <string name="detailTitle">Dettagli utente</string>
+    <string name="search">Cerca il nome utente</string>
+    <string name="search_hint">Cerca il nome utente</string>
+    <string name="follow_fragment">Seguaci</string>
+    <string name="following_fragment">Seguire</string>
+    <string name="change_locale">Cambia lingua</string>
+    <string name="not_found">Non trovato</string>
+    <string name="location">Posizione</string>
+    <string name="company">Azienda</string>
+    <string name="repository">Repository</string>
+    <string name="detailinfo_fragment">Info</string>
+    <string name="home">Casa</string>
+    <string name="favorite">Preferito</string>
+    <string name="setting">Reminder</string>
+    <string name="alarm_setup">Alarm was successfully added</string>
+    <string name="set_alarm_btn">Set reminder</string>
+    <string name="detail_time">Reminder time</string>
+    <string name="success_added">Added to favorite list</string>
+    <string name="error_added">Failed to add into favorite list</string>
+    <string name="success_delete">Removed from favorite list</string>
+    <string name="error_delete">Failed to remove from favorite list</string>
+</resources>
